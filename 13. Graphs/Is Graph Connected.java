@@ -13,19 +13,7 @@ public class Main {
          this.wt = wt;
       }
    }
-   
-   public static void dfs(ArrayList<Edge>[] graph, 
-            int src, ArrayList<Integer> comp, boolean[] vis){
-        vis[src] = true;
-        comp.add(src);
-        
-        for(Edge e: graph[src]){
-            if(vis[e.nbr] == false){ // already visited
-                dfs(graph, e.nbr, comp, vis);
-            }
-        }
-   }
-   
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -45,20 +33,41 @@ public class Main {
          graph[v2].add(new Edge(v2, v1, wt));
       }
 
-      // write your code here
       ArrayList<ArrayList<Integer>> comps = new ArrayList<>();
-      boolean[] vis = new boolean[vtces];
       
-      for(int i=0; i<vtces; i++){
-          if(vis[i] == false){
+      // write your code here
+      boolean[] visited = new boolean[vtces];
+      
+      for(int v = 0 ; v < vtces; v++)
+      {
+          if(visited[v] == false)
+          {
               ArrayList<Integer> comp = new ArrayList<>();
-              dfs(graph, i, comp, vis);
+              checkComp(graph,v,comp,visited);
               comps.add(comp);
+              
           }
+          
       }
-      
-      // number of components
-      if(comps.size() == 1) System.out.println("true"); // connected
-      else System.out.println("false"); // disconnected
+        
+      System.out.println(comps.size() == 1);
    }
+   
+   
+   public static void checkComp(ArrayList<Edge>[] graph, int src,ArrayList<Integer> comp,boolean[] visited)
+   {
+       visited[src] = true;
+       comp.add(src);
+       
+       for(Edge e : graph[src])
+       {
+           if(visited[e.nbr] == false)
+           {
+            
+               checkComp(graph,e.nbr,comp,visited);
+           }
+       }
+   }
+   
+   
 }
