@@ -13,42 +13,7 @@ public class Main {
          this.wt = wt;
       }
    }
-   
-   public static boolean isEdgePresent(ArrayList<Edge>[] graph, int src, int dest){
-        for(Edge e: graph[src]){
-            if(e.nbr == dest){
-                return true;
-            }
-        }
-        return false;
-   }
-   
-   public static void dfs(ArrayList<Edge>[] graph, int node, int visCount, boolean[] vis, String pathSofar){
-        
-        if(visCount == graph.length - 1)
-        { 
-            // hamiltonian path or cycle
-            if(isEdgePresent(graph, pathSofar.charAt(0) - '0', node)){
-                // cycle check -> is there a edge between src and 0
-                System.out.println(pathSofar + "*"); 
-            } else {
-                System.out.println(pathSofar + ".");
-            }
-            return;
-        }    
-        
-        visCount++;
-        vis[node] = true;
-        
-        for(Edge e: graph[node]){
-            if(vis[e.nbr] == false){ 
-                dfs(graph, e.nbr, visCount, vis, pathSofar + e.nbr);
-            }
-        }
-        
-        vis[node] = false;
-   }
-   
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -69,10 +34,50 @@ public class Main {
       }
 
       int src = Integer.parseInt(br.readLine());
-      boolean[] vis = new boolean[vtces];
+
+      // write all your codes here
+      //Hashmap ki keys are hashset 0(1)
+      HashSet<Integer> visited = new HashSet<>();
       
-      dfs(graph, src, 0, vis, "" + src);
+      hamiltonion(graph,src,visited,src+ "" ,src);
    }
 
-
+    public static void hamiltonion(ArrayList<Edge>[] graph, int src, HashSet<Integer> visited, String psf, int orgsrc)
+    {
+        // Minus 1 isliye bcoz jb hmne call lgayi psf m hm src add krte aate h and visited blank paas hota h vo function m andar aane k baad add krta h so -1 krna pdega
+        if(visited.size() == graph.length- 1)
+        {
+            //closing edge means cycle 
+            boolean closingEdgefound = false;
+            for(Edge e : graph[src])
+            {
+                if(e.nbr == orgsrc)
+                {
+                    closingEdgefound = true;
+                    break;
+                }
+            }
+            
+            if(closingEdgefound == true)
+            {
+                System.out.println(psf + "*");
+            }
+            else
+            {
+                System.out.println(psf + ".");
+            }
+        }
+        visited.add(src);
+        
+        for(Edge e : graph[src])
+        {
+            if(visited.contains(e.nbr) == false)
+            {
+                hamiltonion(graph,e.nbr,visited,psf+e.nbr,orgsrc);
+            }
+            
+        }
+        
+        visited.remove(src);
+    }
 }
