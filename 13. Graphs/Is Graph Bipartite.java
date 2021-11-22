@@ -89,7 +89,7 @@ public class Main {
             }
             else
             {
-                // visited nhih toh visted krdo and rem.level usme daal do
+                // visited nhih toh visited krdo and rem.level usme daal do
                 visited[rem.v] = rem.level;
             }
             
