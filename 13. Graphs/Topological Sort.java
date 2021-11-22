@@ -1,4 +1,4 @@
-// Topological Sort - Order of Compilation
+//Order Of Compilation
 import java.io.*;
 import java.util.*;
 
@@ -12,20 +12,7 @@ public class Main {
          this.nbr = nbr;
       }
    }
-    
-   public static void DFS(ArrayList<Edge>[] graph, int src, 
-                boolean[] vis, Stack<Integer> topoSort){
-        vis[src] = true;
-        
-        for(Edge e: graph[src]){
-            if(vis[e.nbr] == false){
-                DFS(graph, e.nbr, vis, topoSort);
-            }
-        }
-        
-        topoSort.push(src);
-   }
-   
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -42,19 +29,52 @@ public class Main {
          int v2 = Integer.parseInt(parts[1]);
          graph[v1].add(new Edge(v1, v2));
       }
-        
-      boolean[] vis = new boolean[vtces];
-      Stack<Integer> topoSort = new Stack<>();
+
+      // visited array
+      boolean[] visited = new boolean[vtces];
       
-      for(int i=0; i<vtces; i++){
-          if(vis[i] == false){
-              DFS(graph, i, vis, topoSort);
+      //stack
+      Stack<Integer> stk = new Stack<>();
+      
+      //vertices pr loop to check connected components
+      for(int i = 0 ; i < vtces; i++)
+      {
+          //unvisited pr call
+          if(visited[i] == false)
+          {
+              //toplogical sort call liya and stk bhi paas kiya
+              topologicalSort(graph,i,visited,stk);
+              
           }
       }
       
-      while(topoSort.size() > 0){
-          System.out.println(topoSort.pop());
+      //functions se bahr aakr jo bhi stack m h print kr diya
+      while(stk.size() > 0)
+      {
+          System.out.println(stk.pop());
       }
+      
    }
-
+   
+   public static void topologicalSort(ArrayList<Edge>[] graph , int src , boolean[] visited, Stack<Integer> stk)
+   {
+       //aate hi visited mark
+       visited[src] = true;
+       
+       //nbrs pr loop 
+       for(Edge e : graph[src])
+       {
+           //unvisited nbr ko check kiya
+           if(visited[e.nbr] == false)
+           {
+               //recusive call from nbr
+               topologicalSort(graph,e.nbr,visited,stk);
+           }
+       }
+       
+       //postorder m statck m add kr liya
+       stk.push(src);
+       
+   }
+   
 }
