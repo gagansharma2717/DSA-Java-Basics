@@ -11,16 +11,19 @@ public class Main {
          this.nbr = nbr;
       }
    }
-    
-   static class Pair{
-       int node;
+   
+   public static class Pair
+   {
+       int v;
        int time;
        
-       Pair(int node, int time){
-           this.node = node;
+       Pair(int v , int time)
+       {
+           this.v = v;
            this.time = time;
        }
    }
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -42,33 +45,47 @@ public class Main {
       int src = Integer.parseInt(br.readLine());
       int t = Integer.parseInt(br.readLine());
       
-      Queue<Pair> q = new LinkedList<>();
-      boolean[] vis = new boolean[vtces];
-      
-      q.add(new Pair(src, 1));
+      // write your code here
+      //bfs ka variation
+      int[] visited = new int[vtces];
+      ArrayDeque<Pair> q = new ArrayDeque<>();
+      q.add(new Pair(src,1));
       int count = 0;
-      
-      while(q.size() > 0){
-          // remove
-          Pair curr = q.remove();
-           
-          if(vis[curr.node] == true) continue;
-          vis[curr.node] = true;
+      while(q.size() > 0)
+      {
+          Pair rem = q.removeFirst();
+          //int array m sb 0 h so time 0 se jyada h toh phle visited h so continue
+          if(visited[rem.v] > 0)
+          {
+             continue; 
+          }
+          //Nhi toh time daal diya visited array m
+          visited[rem.v] = rem.time;
+          if(rem.time > t)
+          {
+              //check kiya kya ye time given tgime se jyada h jyada h toh break
+              break;
+          }
+          //count bdaya
+          count++;
           
-          // work
-          
-          if(curr.time > t) break;
-          count++;    
-          
-          // add*
-          for(Edge e: graph[curr.node]){
-              if(vis[e.nbr] == false){
-                  q.add(new Pair(e.nbr, curr.time + 1));
+          //nbr add kiye
+          for(Edge e : graph[rem.v])
+          {
+              if(visited[e.nbr] == 0)
+              {
+                  q.add(new Pair(e.nbr,rem.time + 1));
               }
           }
       }
       
       System.out.println(count);
+      
+      
+      
+      
+      
+      
    }
 
 }
