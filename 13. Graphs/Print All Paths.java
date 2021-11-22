@@ -13,25 +13,7 @@ public class Main {
          this.wt = wt;
       }
    }
-   
-   // Print All Paths from Source to Destination -> Backtracking -> O(N^N) or O(N!) -> Exponential
-   public static void dfs(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis, String pathSofar){
-        if(src == dest){
-            System.out.println(pathSofar);
-            return;
-        }    
-        
-        vis[src] = true;
-        
-        for(Edge e: graph[src]){
-            if(vis[e.nbr] == false){ // already visited
-                dfs(graph, e.nbr, dest, vis, pathSofar + e.nbr);
-            }
-        }
-        
-        vis[src] = false; // unmarking node to visit it again using other paths
-   }
-   
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -53,12 +35,33 @@ public class Main {
 
       int src = Integer.parseInt(br.readLine());
       int dest = Integer.parseInt(br.readLine());
-        
-      boolean vis[] = new boolean[vtces];
-      
-      // write all your codes here
-      dfs(graph, src, dest, vis, "" + src);
-   }
 
+      // write all your codes here
+      boolean[] visited = new boolean[vtces];
+      printAllPaths(graph,src,dest,visited,src + "");
+      
+   }
+    
+    public static void printAllPaths(ArrayList<Edge>[] graph,int src,int dest,boolean[] visited,String psf)
+    {
+        if(src == dest)
+        {
+            System.out.println(psf);
+            return;
+        }
+        
+        visited[src] = true;
+        for(Edge edge : graph[src])
+        {
+            if(visited[edge.nbr] == false)
+            {
+                printAllPaths(graph,edge.nbr,dest,visited,psf + edge.nbr);
+                
+            }    
+        }
+        
+        visited[src] = false;
+        
+    }
 
 }
