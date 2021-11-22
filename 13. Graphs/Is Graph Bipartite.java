@@ -13,41 +13,20 @@ public class Main {
          this.wt = wt;
       }
    }
-
-   public static boolean DFS(ArrayList<Edge>[] graph, int src, int level, boolean[] vis, HashSet<Integer> odd, HashSet<Integer> even){
-       vis[src] = true;
-       if(level % 2 == 0){
-           even.add(src);
-       } else {
-           odd.add(src);
-       }
-       
-       
-       for(Edge e: graph[src]){
-           
-           if(vis[e.nbr] == false){
-               
-               boolean res = DFS(graph, e.nbr, level + 1, vis, odd, even);
-               if(res == false) return false;
-               
-           } else {
-               
-               // Src par khade hoke nbr ka decision le rahe hai -> level + 1
-               if(odd.contains(e.nbr) == true && (level + 1) % 2 == 0){
-                   // previously odd set & currently even set
-                   return false;
-               }
-               
-               if(even.contains(e.nbr) == true && (level + 1) % 2 == 1){
-                   return false;
-               }
-           }
-           
-       }
-       
-       return true;
-   }
-   
+    
+    public static class Pair
+    {
+        int v;
+        String psf;
+        int level;
+        
+        Pair(int v, String psf, int level)
+        {
+            this.v = v;
+            this.psf = psf;
+            this.level = level;
+        }
+    }
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -68,24 +47,63 @@ public class Main {
       }
 
       // write your code here
-      HashSet<Integer> odd = new HashSet<>();
-      HashSet<Integer> even = new HashSet<>();
-      boolean[] vis = new boolean[vtces];
-      
-      
-      for(int i=0; i<vtces; i++){
-          
-          if(vis[i] == false){
-              
-              boolean isBipartite = DFS(graph, i, 0, vis, odd, even);
-              
-              if(isBipartite == false){
-                  System.out.println(false);
-                  return;
-              }
+      int[] visited = new int[vtces];
+      Arrays.fill(visited,-1);
+      for(int i = 0 ; i < vtces; i++)
+      {
+          if(visited[i] == -1)
+          {
+            boolean isBipartite = checkCompForBipartite(graph,i,visited);
+            if(isBipartite == false)
+            {
+                
+                System.out.println(false);
+                return;
+            }
+            
           }
-          
       }
+      
       System.out.println(true);
+   }
+   
+   public static boolean checkCompForBipartite(ArrayList<Edge>[] graph, int src, int[] visited)
+   {
+        ArrayDeque<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(src, src+"" ,0));
+        
+        // Remove Mark* Work Add*
+        while(q.size() > 0)
+        {
+            Pair rem = q.removeFirst();
+            
+            //Agar visited hua h
+            if(visited[rem.v] != -1)
+            {
+                //current level ko comapre kiya pichle level se jo visited[rem.v] m h 
+                if(rem.level != visited[rem.v])
+                {
+                    //Agar dono level same nhi h
+                    return false;
+                }
+            }
+            else
+            {
+                // visited nhih toh visted krdo and rem.level usme daal do
+                visited[rem.v] = rem.level;
+            }
+            
+            //ADDING rem.v k nbr
+            for(Edge e : graph[rem.v])
+            {
+                //if they are not visited then onlhy add
+                if(visited[e.nbr] == -1)
+                {
+                    q.add(new Pair(e.nbr, rem.psf+e.nbr, rem.level+1));
+                }
+            }
+            
+        }
+        return true;
    }
 }
