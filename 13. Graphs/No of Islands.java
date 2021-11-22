@@ -2,21 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-   public static void dfs(int[][] arr, int srcRow, int srcCol){
-        if(srcRow < 0 || srcRow >= arr.length || srcCol < 0 
-            || srcCol >= arr[0].length || arr[srcRow][srcCol] != 0){
-            // invalid cell or already visited island cell or water cell
-            return;
-        }  
-        
-        arr[srcRow][srcCol] = -1;
-        
-        dfs(arr, srcRow + 1, srcCol);
-        dfs(arr, srcRow - 1, srcCol);
-        dfs(arr, srcRow, srcCol + 1);
-        dfs(arr, srcRow, srcCol - 1);
-   }
-   
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -30,21 +15,45 @@ public class Main {
             arr[i][j] = Integer.parseInt(parts.split(" ")[j]);
          }
       }
-        
-      int islands = 0;
-      for(int i=0; i<m; i++){
-          for(int j=0; j<n; j++){
-              
-              if(arr[i][j] != -1 && arr[i][j] != 1) // neither visited nor water cell{
+
+      // write your code here
+      //Visited array for tracking 
+      boolean[][] visited = new boolean[arr.length][arr[0].length];
+      
+      //taking count os islands
+      int count = 0;
+      //loop on array
+      for(int i = 0 ; i < arr.length; i++)
+      {
+          for(int j = 0 ; j < arr[0].length;j++)
+          {
+              if(arr[i][j] == 0 && visited[i][j] == false)
               {
-                  // unvisited island cell
-                  dfs(arr, i, j);
-                  islands++;
-              }      
-              
+                dfs(arr,i,j,visited);  
+                count++;
+              }
           }
       }
-      System.out.println(islands);
+      
+      System.out.println(count);
+   }
+   
+   public static void dfs(int[][] arr, int i , int j , boolean[][] visited)
+   {    
+       //base case 
+       if(i < 0 || j < 0 || i >= arr.length ||  j >= arr[0].length || visited[i][j] == true || arr[i][j] == 1)
+       {
+           return;
+       }
+       //visited mark kiya
+       visited[i][j] = true;
+       
+       //4 calls for down,right,up,left
+       dfs(arr,i+1,j,visited);
+       dfs(arr,i,j + 1,visited);
+       dfs(arr,i - 1,j,visited);
+       dfs(arr,i,j -1,visited);
    }
 
+}
 }
