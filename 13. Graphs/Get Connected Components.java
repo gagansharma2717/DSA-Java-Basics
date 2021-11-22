@@ -13,21 +13,7 @@ public class Main {
          this.wt = wt;
       }
    }
-    
-  // DFS on 1 component will take O(n + e) Time where n = vertices in that component, and e = edges in that component.
-  // Hence, getting all connected components will take O(N + E) time where N = total vertices, E = total edges
-  
-   public static void dfs(ArrayList<Edge>[] graph, int src, ArrayList<Integer> comp, boolean[] vis){
-        vis[src] = true;
-        comp.add(src);
-        
-        for(Edge e: graph[src]){
-            if(vis[e.nbr] == false){
-                dfs(graph, e.nbr, comp, vis);
-            }
-        }
-   }
-   
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -48,16 +34,39 @@ public class Main {
       }
 
       ArrayList<ArrayList<Integer>> comps = new ArrayList<>();
-      boolean[] vis = new boolean[vtces];
       
-      for(int i=0; i<vtces; i++){
-          if(vis[i] == false){
+      // write your code here
+      boolean[] visited = new boolean[vtces];
+      
+      for(int v = 0 ; v < vtces; v++)
+      {
+          if(visited[v] == false)
+          {
               ArrayList<Integer> comp = new ArrayList<>();
-              dfs(graph, i, comp, vis);
+              checkComp(graph,v,comp,visited);
               comps.add(comp);
+              
           }
+          
       }
-      
+        
       System.out.println(comps);
    }
+   
+   
+   public static void checkComp(ArrayList<Edge>[] graph, int src,ArrayList<Integer> comp,boolean[] visited)
+   {
+       visited[src] = true;
+       comp.add(src);
+       
+       for(Edge e : graph[src])
+       {
+           if(visited[e.nbr] == false)
+           {
+            
+               checkComp(graph,e.nbr,comp,visited);
+           }
+       }
+   }
+
 }

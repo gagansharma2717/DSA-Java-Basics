@@ -14,85 +14,20 @@ public class Main {
       }
    }
 
-   static String smallestPath = "";
-   static int smallestPathWt = Integer.MAX_VALUE;
-   
-   static String largestPath = "";
-   static int largestPathWt = Integer.MIN_VALUE;
-   
-   static String floorPath = "";
-   static int floorWt = Integer.MIN_VALUE;
-   
-   static String ceilPath = "";
-   static int ceilWt = Integer.MAX_VALUE;
-   
-   static class Pair implements Comparable<Pair>{
-       String pathSofar;
-       int weightSofar;
-       
-       Pair(String psf, int wsf){
-           pathSofar = psf;
-           weightSofar = wsf;
-       }
-       
-       public int compareTo(Pair other){
-           return this.weightSofar - other.weightSofar;
-       }
+   static class Pair implements Comparable<Pair> {
+      int wsf;
+      String psf;
+
+      Pair(int wsf, String psf){
+         this.wsf = wsf;
+         this.psf = psf;
+      }
+
+      public int compareTo(Pair o){
+         return this.wsf - o.wsf;
+      }
    }
-   
-   static int val = 0;
-   static int k = 0;
-   static PriorityQueue<Pair> q = new PriorityQueue<>();
-   
-   public static void dfs(ArrayList<Edge>[] graph, int src, int dest, 
-            boolean[] vis, String pathSofar, int weightSofar){
-        if(src == dest){
-            // Smallest path
-            if(weightSofar < smallestPathWt){
-                smallestPath = pathSofar;
-                smallestPathWt = weightSofar;
-            }
-            
-            // largest path
-            if(weightSofar > largestPathWt){
-                largestPath = pathSofar;
-                largestPathWt = weightSofar;
-            }
-            
-            // floor 
-            if(weightSofar < val && weightSofar > floorWt){
-                floorPath = pathSofar;
-                floorWt = weightSofar;
-            }
-            
-            // ceil
-            if(weightSofar > val && weightSofar < ceilWt){
-                ceilPath = pathSofar;
-                ceilWt = weightSofar;
-            }
-            
-            // kth largest
-            if(q.size() < k){
-                q.add(new Pair(pathSofar, weightSofar));
-            } else if(weightSofar > q.peek().weightSofar){
-                q.remove();
-                q.add(new Pair(pathSofar, weightSofar));
-            }
-                
-            return;
-        }    
-        
-        vis[src] = true;
-        
-        for(Edge e: graph[src]){
-            if(vis[e.nbr] == false){
-                dfs(graph, e.nbr, dest, vis, pathSofar + e.nbr, weightSofar + e.wt);
-            }
-        }
-        
-        vis[src] = false;
-   }
-   
+
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -114,20 +49,91 @@ public class Main {
 
       int src = Integer.parseInt(br.readLine());
       int dest = Integer.parseInt(br.readLine());
-      val = Integer.parseInt(br.readLine());
-      k = Integer.parseInt(br.readLine());
+
+      int criteria = Integer.parseInt(br.readLine());
+      int k = Integer.parseInt(br.readLine());
+
+      boolean[] visited = new boolean[vtces];
+      multisolver(graph, src, dest, visited, criteria, k, src + "", 0);
       
-      boolean vis[] = new boolean[vtces];
-      
-      // write all your codes here
-      dfs(graph, src, dest, vis, "" + src, 0);
-      
-      System.out.println("Smallest Path = " + smallestPath + "@" + smallestPathWt);
-      System.out.println("Largest Path = " + largestPath + "@" + largestPathWt);
-      System.out.println("Just Larger Path than " + val + " = " + ceilPath + "@" + ceilWt);
-      System.out.println("Just Smaller Path than " + val + " = " + floorPath + "@" + floorWt);
-      System.out.println(k + "th largest path = " + q.peek().pathSofar + "@" + q.peek().weightSofar);
+      System.out.println("Smallest Path = " + spath + "@" + spathwt);
+      System.out.println("Largest Path = " + lpath + "@" + lpathwt);
+      System.out.println("Just Larger Path than " + criteria + " = " + cpath + "@" + cpathwt);
+      System.out.println("Just Smaller Path than " + criteria + " = " + fpath + "@" + fpathwt);
+      System.out.println(k + "th largest path = " + pq.peek().psf + "@" + pq.peek().wsf);
    }
 
 
+
+   static String spath;
+   static Integer spathwt = Integer.MAX_VALUE;
+   static String lpath;
+   static Integer lpathwt = Integer.MIN_VALUE;
+   static String cpath;
+   static Integer cpathwt = Integer.MAX_VALUE;
+   static String fpath;
+   static Integer fpathwt = Integer.MIN_VALUE;
+   static PriorityQueue<Pair> pq = new PriorityQueue<>();
+   public static void multisolver(ArrayList<Edge>[] graph, int src, int dest, boolean[] visited, int criteria, int k, String psf, int wsf) {
+      
+      if(src == dest)
+      {
+          if(wsf < spathwt)
+          {
+             spathwt = wsf;
+              spath = psf;
+              
+          }
+          
+          if(wsf > lpathwt)
+          {
+              lpathwt = wsf;
+              lpath = psf;
+              
+          }
+          
+          if(wsf > criteria && wsf < cpathwt)
+          {
+              cpathwt = wsf;
+              cpath = psf;
+              
+          }
+          
+          if(wsf < criteria && wsf > fpathwt)
+          {
+              fpathwt = wsf;
+              fpath = psf;
+              
+          }
+          
+          if(pq.size() < k)
+          {
+              pq.add(new Pair(wsf,psf));
+          }
+          else
+          {
+              if(wsf > pq.peek().wsf)
+              {
+                  pq.remove();
+                  pq.add(new Pair(wsf,psf));
+              }
+          }
+          return;
+      }
+      
+      visited[src] = true;
+      
+      for(Edge edge : graph[src])
+      {
+          if(visited[edge.nbr] == false)
+          {
+              multisolver(graph,edge.nbr,dest,visited,criteria,k,psf+edge.nbr,wsf+edge.wt);
+          }
+      }
+      
+      
+      visited[src] = false;
+      
+      
+   }
 }

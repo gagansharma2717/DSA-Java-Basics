@@ -10,17 +10,19 @@ public class Main {
          this.src = src;
          this.nbr = nbr;
       }
+      
    }
+    static class Pair {
+          int v;
+          String psf;
+          
+          Pair(int v , String psf)
+          {
+              this.v = v;
+              this.psf = psf;
+          }
+      }
 
-   static class Pair{
-       int node;
-       String pathSofar;
-       
-       Pair(int node, String pathSofar){
-           this.node = node;
-           this.pathSofar = pathSofar;
-       }
-   }
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -38,33 +40,42 @@ public class Main {
          graph[v1].add(new Edge(v1, v2));
          graph[v2].add(new Edge(v2, v1));
       }
-      
+
       int src = Integer.parseInt(br.readLine());
+
       // write your code here  
+      ArrayDeque<Pair> queue = new ArrayDeque<>();
+      queue.add(new Pair(src,src+""));
       
-      Queue<Pair> q = new LinkedList<>();
-      boolean[] vis = new boolean[vtces];
-      
-      q.add(new Pair(src, "" + src));
-      
-      while(q.size() > 0){
-          // remove
-          Pair curr = q.remove();
+      boolean[] visited = new boolean[vtces];
+      while(queue.size() > 0)
+      {
+          //r m* w a*
           
-          if(vis[curr.node] == true) continue;
+          //remove
+          Pair rem = queue.removeFirst();
           
-          // mark*
-          vis[curr.node] = true;
+          // Checking visited or not
+          if(visited[rem.v] == true)
+          {
+              continue;
+          }
+          //mark*
+          visited[rem.v] = true;
           
-          // work
-          System.out.println(curr.node + "@" + curr.pathSofar);
+          //work
+          System.out.println(rem.v + "@" + rem.psf);
           
-          // add*
-          for(Edge e: graph[curr.node]){
-              if(vis[e.nbr] == false){
-                  q.add(new Pair(e.nbr, curr.pathSofar + e.nbr));
+          //add*
+          for(Edge e : graph[rem.v])
+          {
+              if(visited[e.nbr] == false)
+              {
+                  queue.add(new Pair(e.nbr , rem.psf+e.nbr));
               }
           }
       }
+      
+      
    }
 }
