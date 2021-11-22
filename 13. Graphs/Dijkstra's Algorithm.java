@@ -1,3 +1,4 @@
+//Shortest Path In Weights
 import java.io.*;
 import java.util.*;
 
@@ -13,24 +14,24 @@ public class Main {
          this.wt = wt;
       }
    }
-    
-   static class Pair implements Comparable<Pair>{
-       int node;
-       String pathSofar;
-       int weightSofar;
+   public static class Pair implements Comparable<Pair>
+   {
+       int v;
+       String psf;
+       int wsf;
        
-       Pair(int node, String pathSofar, int weightSofar){
-           this.node = node;
-           this.pathSofar = pathSofar;
-           this.weightSofar = weightSofar;
+       Pair(int v, String psf,int wsf)
+       {
+           this.v = v;
+           this.psf = psf;
+           this.wsf = wsf;
        }
        
-       public int compareTo(Pair other){
-           return this.weightSofar - other.weightSofar;
+       public int compareTo(Pair others)
+       {
+           return this.wsf - others.wsf;
        }
-   }    
-   
-   
+   }
    public static void main(String[] args) throws Exception {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -52,31 +53,39 @@ public class Main {
 
       int src = Integer.parseInt(br.readLine());
       // write your code here
+      //Dijakstra algo same aS BSF JUST PQ Implement hoga and comaparable interface use hoga
       
-      PriorityQueue<Pair> q = new PriorityQueue<>();
-      boolean[] vis = new boolean[vtces];
+      boolean[] visited = new boolean[vtces];
+      PriorityQueue<Pair> pq = new PriorityQueue<>();
+      pq.add(new Pair(src, src+"" , 0));
       
-      q.add(new Pair(src, "" + src, 0));
-      
-      while(q.size() > 0){
-          // remove
-          Pair curr = q.remove();
+      while(pq.size() > 0)
+      {
+          //remove
+          Pair rem = pq.remove();
+          //mark*
+          if(visited[rem. v] == true)
+          {
+              continue;
+          }
+          visited[rem.v] = true;
           
-          if(vis[curr.node] == true) continue;
-          
-          // mark*
-          vis[curr.node] = true;
-          
-          // work
-          System.out.println(curr.node + " via " + curr.pathSofar + " @ " + curr.weightSofar);
-          
-          // add*
-          for(Edge e: graph[curr.node]){
-              if(vis[e.nbr] == false){
-                  q.add(new Pair(e.nbr, curr.pathSofar + e.nbr, curr.weightSofar + e.wt));
+          //work
+          System.out.println(rem.v + " via " + rem.psf + " @ " + rem.wsf);
+            
+          //add*
+          for(Edge e : graph[rem.v])
+          {
+              if(visited[e.nbr] == false)
+              {
+                  pq.add(new Pair(e.nbr,rem.psf+e.nbr,rem.wsf+e.wt));
               }
           }
-      }
+          
+          
+          
+          }
+      
       
    }
 }
