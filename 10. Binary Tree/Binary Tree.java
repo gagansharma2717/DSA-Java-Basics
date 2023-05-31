@@ -11,7 +11,7 @@ public class Main {
       this.data = data;
     }
   }
-
+ 
   public static class Pair {
     Node node;
     int state;

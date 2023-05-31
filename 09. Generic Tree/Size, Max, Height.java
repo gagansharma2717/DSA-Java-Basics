@@ -1,22 +1,34 @@
-public static int size(Node root) {
-  if (root == null) return 0;
+public static int size(Node root{
+  if(root == null) return 0;
 
-  int count = 1;
-  for (Node child : root.children) {
-    count += size(child);
+  int total_size = 0 ;
+
+  // Expectation is root ke saare children pr loop lgao vo apna size bta denge usko totalsize m add krlo
+  for(Node child : root.children){
+      int childsize = size(child);
+      total_size += childsize;
   }
 
-  return count;
+  // then root ka khud size bhi add krlo taht will be our total size
+  // Meeting Expectation with faith
+  total_size += 1;
+
+  return total_size;
 }
 
-public static int max(Node root) {
-  int maximum = root.data;
-  for (Node child : root.children) {
-    maximum = Math.max(maximum, max(child));
-  }
+ public static int max(Node root){
+        // Initially assumed root data as max
+        int max = root.data;
 
-  return maximum;
-}
+        // Run loop on root children's get children's max and compare it with Max and update the max
+        for(Node child : root.children){
+            int cmax = max(child);
+            max = Math.max(cmax, max);
+        }
+
+        
+        return max;
+    }
 
 public static int heightByNodes(Node root) {
   // in terms of nodes

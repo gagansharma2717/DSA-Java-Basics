@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/01. Getting Started" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/02. Patterns" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/03.1. 1D Arrays" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/03.2. 2D Arrays" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/03.3. Searching &amp; Sorting" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/04. String &amp; StringBuilder" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/05.1. Recursion Basics" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/05.2. Recursion All Paths" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/05.3. Backtracking" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/06. Dynamic Programming" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/07. Stack &amp; Queue" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/08. Linked List" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/09. Generic Tree" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/10. Binary Tree" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/11. Binary Search Tree" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/12. Hashmap &amp; Heap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/13. Graphs" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
