@@ -1,6 +1,5 @@
 import java.util.*;
-  
-  public class Main{
+public class Main{
   
   public static void main(String[] args) {
       Scanner scn = new Scanner(System.in);
@@ -10,7 +9,7 @@ import java.util.*;
   
       int d = getDifference(b, n1, n2);
       System.out.println(d);
-   }
+    }
   
    public static int getDifference(int b, int n1, int n2){
        int ans = 0;
@@ -27,15 +26,13 @@ import java.util.*;
            if(diff < 0){
                diff += b;
                borrow = 1;
-           }else{
+            }else{
                borrow = 0;
-           }
+            }
            
            ans += (diff * power);
            power *= 10;
-       }
-       
+        }   
        return ans;
-   }
-  
-  }
+    } 
+}

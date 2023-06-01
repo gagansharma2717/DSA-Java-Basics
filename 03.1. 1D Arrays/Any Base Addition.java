@@ -1,6 +1,5 @@
 import java.util.*;
-  
-  public class Main{
+public class Main{
   
   public static void main(String[] args) {
       Scanner scn = new Scanner(System.in);
@@ -10,7 +9,7 @@ import java.util.*;
   
       int d = getSum(b, n1, n2);
       System.out.println(d);
-   }
+    }
   
    public static int getSum(int b, int n1, int n2){
        int ans = 0;
@@ -20,7 +19,7 @@ import java.util.*;
        while(n1 != 0 || n2 != 0 || carry != 0){
            int l1 = n1 % 10;
            int l2 = n2 % 10;
-           n1 /= 10;
+           n1 /= 10;f
            n2 /= 10;
            
            int sum = l1 + l2 + carry;
@@ -30,8 +29,7 @@ import java.util.*;
            ans += (r * power);
            carry = q;
            power *= 10;
-       }
-       
+        }
        return ans;
-   }
-  }
+    }
+}

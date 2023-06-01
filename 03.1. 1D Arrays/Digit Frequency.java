@@ -1,4 +1,4 @@
-import java.util.*;
+ import java.util.*;
 
 public class Main {
 
@@ -15,8 +15,8 @@ public class Main {
         int freq = 0;
         while(n > 0)
         {
-            int dig = n % 10;
-            n = n/10;
+            int dig = n % 10;   //remainder
+            n = n/10;           // quotient 
             if(dig == d) freq++;
         }
         return freq;

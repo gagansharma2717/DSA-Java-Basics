@@ -11,14 +11,15 @@ import java.util.*;
    }
   
    public static int getValueInBase(int n, int b){
+       // Here n is number and b is base 
        int ans = 0;
-       int power = 1; //10^0
+       int power = 1; //10^0 = 1 then 10^1 = 10 & so on
        
        while(n != 0){
-           int r = n % b;
+           int digit = n % b;
            n = n / b;
            
-           ans += (r * power);
+           ans += (digit * power);
            power *= 10;
        }
        
