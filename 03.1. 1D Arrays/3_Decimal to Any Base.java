@@ -1,6 +1,5 @@
 import java.util.*;
-  
-  public class Main{
+public class Main{
   
   public static void main(String[] args) {
       Scanner scn = new Scanner(System.in);
@@ -8,7 +7,7 @@ import java.util.*;
       int b = scn.nextInt();
       int dn = getValueInBase(n, b);
       System.out.println(dn);
-   }
+    }
   
    public static int getValueInBase(int n, int b){
        // Here n is number and b is base 
@@ -21,8 +20,7 @@ import java.util.*;
            
            ans += (digit * power);
            power *= 10;
-       }
-       
+        }
        return ans;
-   }
-  }
+    }
+}

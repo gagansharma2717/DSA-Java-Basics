@@ -13,21 +13,23 @@ public class Main{
             arr[i] = scn.nextInt();
         }
         
-        int cols = arr.length;
         int max = Integer.MIN_VALUE;
         for(int i=0; i<n; i++)
         {
-            if(arr[i] > max) max = arr[i]; 
+            if(arr[i] > max) 
+                max = arr[i]; 
         }
         
-        int rows = max;
-        for(int i=rows; i>0; i--)
+        // rows - floor
+        for(int floor=max; floor >= 1;   floor--)
         {
-            for(int j=0; j<cols; j++)
+            // cols - building
+            for(int j=0; j<arr.length; j++)
             {
-                if(i <= arr[j]) // condition
-                { System.out.print("*	"); }
-                else System.out.print("	");
+                if(arr[j] >= floor) // condition
+                    System.out.print("*\t"); 
+                else 
+                    System.out.print("\t");
             }
             System.out.println();
         }
