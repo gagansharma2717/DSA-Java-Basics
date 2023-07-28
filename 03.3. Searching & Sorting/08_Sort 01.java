@@ -4,24 +4,24 @@ import java.util.*;
 public class Main {
 
   public static void sort01(int[] arr) {
-    int unexploredFirst = 0, greaterFirst = 0;
-    while (unexploredFirst < arr.length)
+    int i = 0, j = 0;
+    while (i < arr.length)
     {
       // unexplored region : i to n-1
       // 0s region : 0 to j - 1
       // 1s region : j to i - 1
 
-      if (arr[unexploredFirst] == 0)
+      if (arr[i] == 0)
       {
         // add unexplored element in smaller or equal region
-        swap(arr, unexploredFirst, greaterFirst);
-        greaterFirst++;
-        unexploredFirst++;
+        swap(arr, i, j);
+        i++;
+        j++;
       }
       else
       {
         // add unexplored element in greater region
-        unexploredFirst++;
+        i++;
       }
     }
   }
