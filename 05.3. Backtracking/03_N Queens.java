@@ -16,7 +16,7 @@ public class Main {
         for(int i=row-1; i>=0; i--)
             if(chess[i][col] == 1) return false;
         
-        // 1st diagnol
+        // 1st diagnol 
         for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--)
             if(chess[i][j] == 1) return false;
         

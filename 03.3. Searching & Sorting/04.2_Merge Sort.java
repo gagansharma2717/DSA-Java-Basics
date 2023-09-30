@@ -2,52 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-//   public static void mergeSort(int[] arr, int left, int right) {
-//     // base case
-//     if(left == right)
-//     { return; }
     
-//     int mid = (left + right) / 2;
-    
-//     // Faith
-//     mergeSort(arr, left, mid);
-//     mergeSort(arr, mid + 1, right);
-    
-//     // Meeting Faith with Expectation
-//     int[] mergedArray = mergeTwoSortedArrays(arr, left, mid, mid + 1, right);
-//     for(int i=left; i<=right; i++)
-//         arr[i] = mergedArray[i - left];
-//   }
- //   public static int[] mergeTwoSortedArrays(int[] a, int p1, int p2, int p3, int p4) {
-//     int i = p1, j = p3, k = 0;
-//     int[] ans = new int[(p2 - p1 + 1) + (p4 - p3 + 1)];
-//     while(i <= p2 && j <= p4){
-//         if(a[i] <= a[j]){
-//           ans[k] = a[i];
-//           i++;
-//           k++;
-//         }else{
-//           ans[k] = a[j];
-//           j++;
-//           k++;
-//         }
-//     }
-
-//     while(i <= p2){
-//       ans[k] = a[i];
-//       k++;
-//       i++;
-//     }
-
-//     while(j <= p4){
-//       ans[k] = a[j];
-//       k++;
-//       j++;
-//     }
-    
-//     return ans;
-//   }
-  
   public static int[] mergeSort(int[] arr, int left, int right) {
     // base case
     if(left == right)

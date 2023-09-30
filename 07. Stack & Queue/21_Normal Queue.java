@@ -11,13 +11,12 @@ public class Main {
     int cap;
 
     public CustomQueue(int cap) {
-      dat
-      rear = 0;
-      size = 0;
-    }a = new int[cap];
+      data = new int[cap];
       this.cap = cap;
       front = 0;
-
+      rear = 0;
+      size = 0;
+  }
     int size() {
         return size;
     }
