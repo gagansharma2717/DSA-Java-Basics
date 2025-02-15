@@ -9,8 +9,13 @@ import java.util.*;
       
       while(n > 0)
       {
-          System.out.println(n % 10);
-          n = n / 10;
+        System.out.println(n % 10); // Remainder
+        n = n / 10; // Quotient
+
+        //  e.g 
+        //  745 / 10 = 74 -> Quotient
+        //  745 % 10 = 5 -> Remainder
+        
       }
     }
    }
